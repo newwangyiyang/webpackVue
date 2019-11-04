@@ -35,7 +35,7 @@ module.exports = {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
                             publicPath: '../', // 处理打包图片或字体路径问题
-                            hmr: mode === 'development',
+                            // hmr: mode === 'development',
                             reloadAll: true
                         }
                     },

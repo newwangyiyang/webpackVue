@@ -3,7 +3,7 @@ h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
 ul{list-style:none}
 button,input,select,textarea{margin:0;outline:none;-webkit-appearance:none;border:none;}
 html{box-sizing:border-box}
-*,*:before,*:after{box-sizing:inherit}
+*, *:after, *:before {box-sizing: border-box;}
 img,embed,iframe,object,video{height:auto;max-width:100%}
 audio{max-width:100%}
 iframe{border:0}
