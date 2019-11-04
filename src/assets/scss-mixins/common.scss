@@ -1,0 +1,5 @@
+@mixin setBgColor($selector, $bg) {
+    #{$selector} {
+        background-color: #{$bg};
+    }
+}
