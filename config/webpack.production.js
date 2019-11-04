@@ -1,4 +1,4 @@
-const { resolve } = require('path')
+const { resolve, join } = require('path')
 // 1、抽离css
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 2、压缩css
@@ -8,8 +8,8 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 // 4、打包分析
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // 5、css tree shaking
-// const glob = require('glob')
-// const PurifyCSSPlugin = require('purifycss-webpack')
+const glob = require('glob')
+const PurifyCSSPlugin = require('purifycss-webpack')
 // 6、js压缩 
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
 // 7、js scope tree shaking
@@ -114,10 +114,10 @@ module.exports = {
             chunkFilename: 'css/[id].[hash].css'
         }),
         // css tree shaking
-        // new PurifyCSSPlugin({
-        //     // node 路径扫描
-        //     paths: glob.sync(join(__dirname, 'dist/*.html'))
-        // }),
+        new PurifyCSSPlugin({
+            // node 路径扫描
+            paths: glob.sync(join(__dirname, '../src/**/*.vue'))
+        }),
         // js scope tree shaking
         new WebpackDeepScopeAnalysisPlugin(),
         
