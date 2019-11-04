@@ -1,7 +1,8 @@
 <template>
-    <div>
-        <header class="title">{{msg}}</header>
-        <input v-model="msg" />
+    <div class="box w-h-100p bg-1 p-t-80">
+        <div class="bg-3 w-300 h-300 brs10 brs-t-l250 brs-b-r250 flex-col flex-space-a box-son">
+            <span class="col-0">box</span>
+        </div>
     </div>
 </template>
 
@@ -12,10 +13,18 @@ export default {
             msg: ''
         }
     },
+    created() {
+        document.title = '首页'
+    }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../assets/scss-mixins/common.scss';
-@include setBgColor('.title', teal);
+.box {
+    height: 100vh;
+}
+.box-son {
+    transform: rotateZ(-45deg);
+}
 </style>

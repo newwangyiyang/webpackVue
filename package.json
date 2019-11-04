@@ -48,7 +48,8 @@
     "yargs-parser": "^16.0.0"
   },
   "dependencies": {
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.15",
+    "scss-package": "^1.0.3"
   },
   "browserslist": [
     "> 1%",

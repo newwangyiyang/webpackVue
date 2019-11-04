@@ -1,16 +1,14 @@
 const { resolve } = require('path')
 // 4、动态引入打包后的css、js及压缩html
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// 5、清除上一次打包目录
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-// 6、配置文件合并
+// 5、配置文件合并
 const merge = require('webpack-merge')
-// 7、获取命令携带参数
+// 6、获取命令携带参数
 const argv = require('yargs-parser')(process.argv.slice(2))
 const mode = argv.mode || 'development'
-// 8、解析vue文件
+// 7、解析vue文件
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-
+// 8、根据mode获取环境配置
 const webpackConfig = require(`./config/webpack.${mode}.js`)
 
 const webpackCommonConfig = {
@@ -45,30 +43,30 @@ const webpackCommonConfig = {
                             // publicPath: '../imgs'
                         }
                     },
-                    { // window7系统下无法压缩， window10没问题
-                        loader: 'image-webpack-loader',
-                        options: {
-                          mozjpeg: {
-                            progressive: true,
-                            quality: 65
-                          },
-                          // optipng.enabled: false will disable optipng
-                          optipng: {
-                            enabled: false,
-                          },
-                          pngquant: {
-                            quality: [0.65, 0.90],
-                            speed: 4
-                          },
-                          gifsicle: {
-                            interlaced: false,
-                          },
-                          // the webp option will enable WEBP
-                          webp: {
-                            quality: 75
-                          }
-                        }
-                    },
+                    // { // window7系统下无法压缩， window10没问题
+                    //     loader: 'image-webpack-loader',
+                    //     options: {
+                    //       mozjpeg: {
+                    //         progressive: true,
+                    //         quality: 65
+                    //       },
+                    //       // optipng.enabled: false will disable optipng
+                    //       optipng: {
+                    //         enabled: false,
+                    //       },
+                    //       pngquant: {
+                    //         quality: [0.65, 0.90],
+                    //         speed: 4
+                    //       },
+                    //       gifsicle: {
+                    //         interlaced: false,
+                    //       },
+                    //       // the webp option will enable WEBP
+                    //       webp: {
+                    //         quality: 75
+                    //       }
+                    //     }
+                    // },
                 ]
             }, {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
@@ -112,10 +110,7 @@ const webpackCommonConfig = {
                 removeAttributeQuotes: true
             }
         }),
-        // 清除目录插件
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: resolve(__dirname, 'dist')
-        })
+        
     ]
 }
 

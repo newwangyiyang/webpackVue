@@ -6,7 +6,7 @@ const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 // 3、压缩js
 // const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 // 4、打包分析
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // 5、css tree shaking
 // const glob = require('glob')
 // const PurifyCSSPlugin = require('purifycss-webpack')
@@ -14,6 +14,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin')
 // 7、js scope tree shaking
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default
+// 8、清除上一次打包目录
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const argv = require('yargs-parser')(process.argv.slice(2))
 const mode = argv.mode || 'development'
@@ -38,7 +40,6 @@ module.exports = {
                         }
                     },
                     'css-loader',
-                    'sass-loader',
                     {
                         loader: 'postcss-loader',
                         options: {
@@ -50,6 +51,7 @@ module.exports = {
                             ]
                         }
                     },
+                    'sass-loader',
                 ]
             },
         ]
@@ -67,16 +69,16 @@ module.exports = {
             // 压缩js、es6
             new WebpackParallelUglifyPlugin({
                 uglifyJS: {
-                output: {
-                    beautify: false, // 不需要格式化
-                    comments: false // 不保留注释
-                },
-                warnings: false, // 在UglifyJs删除没有用到的代码时不输出警告
-                compress: {
-                    drop_console: true, // 删除所有的 `console` 语句，可以兼容ie浏览器
-                    collapse_vars: true, // 内嵌定义了但是只用到一次的变量
-                    reduce_vars: true // 提取出出现多次但是没有定义成变量去引用的静态值
-                }
+                    output: {
+                        beautify: false, // 不需要格式化
+                        comments: false // 不保留注释
+                    },
+                    warnings: false, // 在UglifyJs删除没有用到的代码时不输出警告
+                    compress: {
+                        drop_console: true, // 删除所有的 `console` 语句，可以兼容ie浏览器
+                        collapse_vars: true, // 内嵌定义了但是只用到一次的变量
+                        reduce_vars: true // 提取出出现多次但是没有定义成变量去引用的静态值
+                    }
                 }
             }),
         ],
@@ -120,6 +122,11 @@ module.exports = {
         new WebpackDeepScopeAnalysisPlugin(),
         
         // 打包分析
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
+
+        // 清除目录插件
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: resolve(__dirname, 'dist')
+        })
     ]
 }
