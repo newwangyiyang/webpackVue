@@ -45,7 +45,7 @@
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^4.2.2",
     "webpack-parallel-uglify-plugin": "^1.1.2",
-    "yargs-parser": "^16.0.0"
+    "yargs-parser": "^19.0.4"
   },
   "dependencies": {
     "lodash-es": "^4.17.15",
